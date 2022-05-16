@@ -8,7 +8,7 @@ const App = () => {
       <Routes>
         <Route
           exact path="/"
-          render={()=> <Auth />}
+          element={ <Auth /> }
         />
       </Routes>
     </div>

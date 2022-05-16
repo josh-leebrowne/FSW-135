@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, createContext } from "react";
 import axios from "axios";
 
-export const UserContext = React.createContext()
+export const UserContext = createContext()
 
 const UserProvider = (props) => {
     const initState = {user: {}, token: ""}

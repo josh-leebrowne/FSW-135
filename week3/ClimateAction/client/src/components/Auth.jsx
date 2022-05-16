@@ -12,10 +12,7 @@ const Auth = () => {
     
     const handleChange = (e) => {
         const {name, value} = e.target
-        setInputs(prevInputs => ({
-            ...prevInputs,
-            [name]: value
-        }))
+        setInputs(prevInputs => ({...prevInputs, [name]: value}))
     }
 
     const handleSignUp = (e) => {

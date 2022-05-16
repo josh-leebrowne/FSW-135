@@ -5,15 +5,16 @@ const commentScehma = new Schema ({
     comment_field: {
         type: String
     },
-    commentID: {
+    issue: {
         type: mongoose.Types.ObjectId,
+        ref: "Issue",
         required: true
     },
     user: {
         type: mongoose.Types.ObjectId,
         ref: "User",
         required: true
-    }
+    },
 })
 
 module.exports = mongoose.model("Comment", commentScehma)
