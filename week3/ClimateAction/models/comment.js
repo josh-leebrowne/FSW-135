@@ -5,13 +5,14 @@ const commentScehma = new Schema ({
     comment_field: {
         type: String
     },
-    _commentID: {
+    commentID: {
         type: mongoose.Types.ObjectId,
         required: true
     },
-    _userId: {
+    user: {
         type: mongoose.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true
     }
 })
 

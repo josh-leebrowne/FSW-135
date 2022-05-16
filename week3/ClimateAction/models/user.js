@@ -8,10 +8,6 @@ const userSchema = new Scehma ({
         lowercase: true,
         unique: true
     },
-    _userId: {
-        type: mongoose.Types.ObjectId,
-        ref: "Comment"
-    },
     password: {
         type: String,
         required: true
