@@ -12,6 +12,7 @@ const Auth = () => {
     
     const handleChange = (e) => {
         const {name, value} = e.target
+        console.log(name, value)
         setInputs(prevInputs => ({...prevInputs, [name]: value}))
     }
 

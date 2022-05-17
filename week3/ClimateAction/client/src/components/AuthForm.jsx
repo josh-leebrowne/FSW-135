@@ -14,13 +14,13 @@ const AuthForm = ( { handleChange, handleSubmit, btnText, inputs } ) => {
             <input
                 type="text"
                 value={inputs.username}
-                name={inputs.username}
+                name={'username'}
                 onChange={handleChange}
                 placeholder="Username"/>
             <input 
                 type="text"
                 value={inputs.password}
-                name={inputs.password}
+                name={'password'}
                 onChange={handleChange}
                 placeholder="Password"/>
                 <button>{ btnText }</button>
