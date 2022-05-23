@@ -8,7 +8,7 @@ const Auth = () => {
     const [inputs, setInputs] = useState(initInputs)
     const [toggle, setToggle] = useState(false)
 
-    const {signup, login} = useContext(UserContext)
+    const {signUp, login} = useContext(UserContext)
     
     const handleChange = (e) => {
         const {name, value} = e.target
@@ -18,7 +18,7 @@ const Auth = () => {
 
     const handleSignUp = (e) => {
         e.preventDefault()
-        signup(inputs)
+        signUp(inputs)
     }
 
     const handleLogin = (e) => {

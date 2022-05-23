@@ -1,13 +1,4 @@
 const AuthForm = ( { handleChange, handleSubmit, btnText, inputs } ) => {
-    // const {
-    //     handleChange,
-    //     handleSubmit,
-    //     btnText,
-    //     inputs: {
-    //         username,
-    //         password
-    //     }
-    // } = props
 
     return(
         <form onSubmit={handleSubmit}>
