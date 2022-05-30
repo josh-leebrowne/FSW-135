@@ -8,7 +8,7 @@ const Auth = () => {
     const [inputs, setInputs] = useState(initInputs)
     const [toggle, setToggle] = useState(false)
 
-    const {signUp, login} = useContext(UserContext)
+    const {signUp, login, errMsg, resetAuthErr} = useContext(UserContext)
     
     const handleChange = (e) => {
         const {name, value} = e.target
@@ -26,32 +26,42 @@ const Auth = () => {
         login(inputs)
     }
 
+    const toggleForm = () => {
+        setToggle(prev => !prev)
+        resetAuthErr()
+    }
     return(
-        <div className="auth-container">
-            <h1>Climate Change Project</h1>
-            { !toggle ?
-                <>
-                    <AuthForm 
-                        handleChange={handleChange}
-                        handleSubmit={handleSignUp}
-                        inputs={inputs}
-                        btnText="Create Account"
-                    />
-                    <p onClick={()=> setToggle(prev => !prev)}>Already have an account?</p>
-                </>
-                :
-                <>
-                    <AuthForm 
-                        handleChange={handleChange}
-                        handleSubmit={handleLogin}
-                        inputs={inputs}
-                        btnText="Login"
-                    />
-                    <p onClick={()=> setToggle(prev => !prev)}>Create an Account</p>
-                </>
-            }
+        <div className="landing-page">
+            <div className="auth-container">
+                <h1 className="projectitle">The Big Blue Dot</h1>
+                { !toggle ?
+                    <>
+                        <AuthForm 
+                            handleChange={handleChange}
+                            handleSubmit={handleLogin}
+                            inputs={inputs}
+                            btnText="Login"
+                            errMsg={ errMsg }
+                        />
+                        <p onClick={()=>  toggleForm()} className='createaccount'>Create an Account</p>   
+                    </>
+                    :
+                    <>
+                        <AuthForm 
+                            handleChange={handleChange}
+                            handleSubmit={handleSignUp}
+                            inputs={inputs}
+                            btnText="Create Account"
+                            errMsg={ errMsg }
+                        />
+                        <p onClick={()=> toggleForm()} className='login'>Already have an account?</p>
+                    </>
+                }
+            </div>
         </div>
     )
 }
 
 export default Auth;
+
+

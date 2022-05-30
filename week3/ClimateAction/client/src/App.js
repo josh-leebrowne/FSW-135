@@ -3,7 +3,7 @@ import Auth from './components/Auth';
 import Navbar from './components/Navbar';
 import Profile from './components/Profile';
 import { UserContext } from './context/UserProvider';
-import './components/App.css';
+import './App.css';
 import { useContext } from 'react';
 
 const App = () => {
@@ -12,21 +12,23 @@ const App = () => {
 
   return (
     <div className="App">
-      <Navbar />
-      <Routes>
-        <Route
-          exact path="/"
-          element={ token ? <Navigate replace to='/profile' /> :<Auth /> }
-        />
-        <Route
-          exact path="/profile"
-          element={ <Profile /> }
-        />
-        {/* <Route 
-          exact path="/public"
-          element={ <Public /> }
-        /> */}
-      </Routes>
+      <div className='landing-page'>
+        <Navbar className="navbar" />
+        <Routes>
+          <Route
+            exact path="/"
+            element={ token ? <Navigate replace to='/profile' /> : <Auth /> }
+          />
+          <Route
+            exact path="/profile"
+            element={ !token ? < Navigate replace to='/' /> : <Profile /> }
+          />
+          {/* <Route 
+            exact path="/public"
+            element={ <Public /> }
+          /> */}
+        </Routes>
+      </div>
     </div>
   );
 }

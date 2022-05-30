@@ -33,15 +33,15 @@ userSchema.pre('save', function(next){
     })
 })
 
-userSchema.methods.checkPassowrd = function(passwordAttempt, callback) {
+userSchema.methods.checkPassword = function(passwordAttempt, callback) {
     bcrypt.compare(passwordAttempt, this.password, (err, isMatch) => {
         if(err) return next(err)
         return callback(null, isMatch)
     })
 }
 
-userSchema.methods.withoutPassowrd = function(){
-    const user = this.Object()
+userSchema.methods.withoutPassword = function(){
+    const user = this.toObject()
     delete user.password
     return user
 }

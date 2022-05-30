@@ -14,8 +14,10 @@ mongoose.connect('mongodb://localhost:27017/ClimateAction')
 
 //Routes
 app.use('/auth', require('./routes/authRouter.js'))
-app.use('/api', jwt({ secret: process.env.SECRET, algorithms: ['HS256']}))
+app.use('/api/', jwt({ secret: process.env.SECRET, algorithms: ['HS256']}))
 app.use('/api/issue', require('./routes/issueRouter.js'))
+//app.use('/api/comment', require('./routes/commentRouter'))
+
 
 
 //Error Handling

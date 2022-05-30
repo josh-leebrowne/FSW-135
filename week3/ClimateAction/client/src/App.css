@@ -1,0 +1,124 @@
+html {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url('./images/animated\ earth.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+    background-size: cover;
+}
+
+/* Login-Signup */
+
+.App {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+.auth-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    height: 18vh;
+    width: 30vw;
+    align-items: center;
+    margin-top: 30vh;
+    /* background-image: url('./images/earthhold.jpg'); */
+    background-position: center;
+    background-size: 600px;
+    border-radius: 10px;
+    color: rgb(0, 0, 0);
+}
+
+.projectitle {
+    background-color: rgb(189, 228, 131);
+    padding: 5px;
+    height: 100px;
+    border-radius: 5px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(189, 228, 131);
+    text-decoration: none;
+    height: 60px;
+    border: 0px solid black;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.auth-form {
+    display: flex;
+    align-items: center;
+    background-color: aliceblue;
+}
+
+.issuelist {
+    background-color: rgb(175, 19, 19);
+}
+
+.issueform {
+    display: flex;
+    flex-direction: column;
+    background-image: url('./images/earthhold.jpg');
+    height: 50vh;
+    align-items: center;
+}
+
+.issue {
+    background-color: rgb(72, 209, 209);
+}
+
+button {
+    background-color: rgb(153, 202, 79);
+    border: solid 1px rgb(12, 11, 11);
+    border-radius: 2px;
+    color: rgb(0, 0, 0);
+}
+
+.createaccount, .login {
+    background-color: rgb(189, 228, 131);
+    padding: 10px;
+    border: black solid 2px;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.logout {
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.username, .password {
+    background-color: rgb(9, 247, 227);
+    color: rgb(0, 0, 0);
+}
+
+.profile {
+    background-color: rgb(189, 228, 131);
+    height: 70vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+    width: 50vw;
+    background-size: cover;
+}
+
+.profile-header {
+    border: 2px black solid;
+    background-image: url('./images/earthhold.jpg');
+}
+
+.profile-issue {
+    border: 2px black solid;
+    background-image: url('./images/earthhold.jpg');
+}
+

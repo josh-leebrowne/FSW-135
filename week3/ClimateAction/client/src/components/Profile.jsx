@@ -7,11 +7,11 @@ const Profile = () => {
     const {user: {username}, addIssue, issues} = useContext(UserContext)
 
     return (
-        <div className='proflie'>
-            <h1>Welcome back {username}</h1>
-            <h3>Add an Issue</h3>
+        <div className='profile'>
+            <h1 className='profile-header'>Welcome back {username}</h1>
+            <h3 className='profile-issue'>Add an Issue</h3>
             <IssueForm addIssue={addIssue}/>
-            <h3>Your Issues</h3>
+            <h3 className='yourissues'>Your Issues</h3>
             <IssueList issues={issues}/>
         </div>
     )

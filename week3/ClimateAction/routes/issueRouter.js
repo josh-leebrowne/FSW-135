@@ -15,7 +15,7 @@ issueRouter.get('/', (req, res, next) => {
 
 //Get Issues by user Id
 issueRouter.get("/user", (req, res, next) => {
-    Issue.find({ issue: req.user._id }, (err, issues) => {
+    Issue.find({ issue: req.auth._id }, (err, issues) => {
         if(err){
             res.status(500)
             return next(err)
@@ -26,7 +26,8 @@ issueRouter.get("/user", (req, res, next) => {
 
 //Add new Issue
 issueRouter.post("/", (req, res, next) => {
-    req.body.user = req.user._id
+    console.log(req.body, req.auth)
+    req.body.user = req.auth._id
     const newIssue = new Issue(req.body)
     newIssue.save((err, savedIssue) => {
         if(err){
@@ -40,7 +41,7 @@ issueRouter.post("/", (req, res, next) => {
 //Delete Issue
 issueRouter.delete("/:issueId", (req, res, next) => {
     Issue.findOneAndDelete(
-        { _id: req.params.user, user: req.issueID._id  },
+        { _id: req.params.issueId, user: req.auth._id  },
         (err, deletedIssue) => {
             if(err){
                 res.status(500)
@@ -54,7 +55,7 @@ issueRouter.delete("/:issueId", (req, res, next) => {
 //Update Issue
 issueRouter.put("/:issueId", (req, res, next) => {
     Issue.findOneAndUpdate(
-        { _id: req.params.issueId, issueID: req.issueID_id },
+        { _id: req.params.issueId, user: req.auth._id },
         req.body,
         { new: true },
         (err, updatedIssue) => {
