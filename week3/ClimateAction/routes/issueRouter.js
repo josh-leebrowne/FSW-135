@@ -26,13 +26,14 @@ issueRouter.get("/user", (req, res, next) => {
 
 //Add new Issue
 issueRouter.post("/", (req, res, next) => {
+    const failedPost = 'Please add a title and description.'
     console.log(req.body, req.auth)
     req.body.user = req.auth._id
     const newIssue = new Issue(req.body)
     newIssue.save((err, savedIssue) => {
         if(err){
             res.status(500)
-            return next(err)
+            return next(new Error(failedPost))
         }
         return res.status(201).send(savedIssue)
     })

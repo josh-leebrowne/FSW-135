@@ -89,6 +89,17 @@ const UserProvider = (props) => {
         .catch(err => console.log(err.response.data.errMsg))
     }
 
+    const publicIssues = () => {
+        userAxios.get('/public/issue')
+        .then(res=> {
+            setUserState(prevState => ({
+                ...prevState,
+                issues: res.data
+            }))
+            .catch(err => console.log(err.response.data.errMsg))
+        })
+    }
+
     const deleteIssue = (issueId) => {
         userAxios.delete(`/api/issue/${issueId}`)
         .then(res => {
@@ -109,7 +120,7 @@ const UserProvider = (props) => {
     }
 
     return(
-        <UserContext.Provider value={ { ...userState, signUp, login, logout, addIssue, getUserIssues, deleteIssue, resetAuthErr, addNewComment }}>
+        <UserContext.Provider value={ { ...userState, signUp, login, logout, addIssue, getUserIssues, publicIssues, deleteIssue, resetAuthErr, addNewComment }}>
             { props.children }
         </UserContext.Provider>
     )

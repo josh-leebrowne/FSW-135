@@ -22,11 +22,11 @@ const issueSchema = new Scehma ({
         type: Number,
         default: 0
     },
-    user: {
-        type: mongoose.Types.ObjectId,
-        required: true,
-        ref: "User"
-    },
+    // user: {
+    //     type: mongoose.Types.ObjectId,
+    //     required: true,
+    //     ref: "User"
+    // },
     comments: {
         type: Array,
         default: []

@@ -54,7 +54,7 @@ const Auth = () => {
                             btnText="Create Account"
                             errMsg={ errMsg }
                         />
-                        <p onClick={()=> toggleForm()} className='login'>Already have an account?</p>
+                        <p onClick={()=> toggleForm()} className='haveaccount'>Already have an account?</p>
                     </>
                 }
             </div>

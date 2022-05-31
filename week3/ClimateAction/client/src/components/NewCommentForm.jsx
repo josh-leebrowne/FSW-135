@@ -27,14 +27,16 @@ const NewCommentForm = () => {
     const {commentText} = newComment
 
     return (
-        <form onSubmit={handleCommentSubmit}>
-            <input 
+        <form onSubmit={handleCommentSubmit} className='new-comment-form'>
+            <textarea
                 type="text"
                 name="commentText"
                 value={commentText}
                 onChange={handleCommentChange}
-                placeholder="Add a comment..."/>
-                <button>Submit Comment</button>
+                placeholder="Discuss..."
+                className="comment-box"
+                />
+                <button className="submit-btn">Comment</button>
         </form>
     )
 }

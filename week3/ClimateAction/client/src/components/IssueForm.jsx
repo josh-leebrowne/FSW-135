@@ -1,21 +1,23 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from "@material-ui/core";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import classNames from 'classnames'
+import { UserContext } from "../context/UserProvider";
 
 const useStyles = makeStyles({
     root: {
-        background: 'white'
+        background: 'white',
+        borderEndEndRadius: '5px'
     },
     field: {
         marginTop: 10,
         marginBottom: 5,
         display: 'flex',
-        
+        width: '20vw'
     },
     input: {
-        color: 'black'
+        color: 'black',
     }
 })
 
@@ -36,6 +38,7 @@ const initInputs = {
 const IssueForm = ({addIssue}) => {
     const [inputs, setInputs] = useState(initInputs)
     const classes = useStyles()
+    const { errMsg } = useContext(UserContext)
 
     const handleChange = (e) => {
         const {name, value} = e.target
@@ -64,6 +67,9 @@ const IssueForm = ({addIssue}) => {
                     color="primary"
                     type="text"
                     name="title"
+                    multiline
+                    rows={4}
+                    inputProps={{maxLength: 100}}
                     value={title}
                     onChange={handleChange}
                     placeholder="Title"/>
@@ -71,6 +77,8 @@ const IssueForm = ({addIssue}) => {
                     className={classNames(classes.root, classes.field, classes.input)}
                     label='Description...'
                     variant="outlined"
+                    multiline
+                    rows={4}
                     type="text"
                     name="description"
                     value={description}
@@ -88,7 +96,8 @@ const IssueForm = ({addIssue}) => {
                     onChange={handleChange}
                     placeholder="Comment"/>
                 </ThemeProvider>
-                <button>Add Issue</button>
+                <p style={{backgroundColor: "#c00000", color: "#ffffff", textAlign: "center" }}>{ errMsg }</p>
+                <button className="add-issue">Add Post</button>
         </form>
     )
 }
