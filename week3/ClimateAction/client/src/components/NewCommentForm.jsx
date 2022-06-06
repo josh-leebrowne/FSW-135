@@ -2,12 +2,11 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/UserProvider";
 
 const initInputs = {
-    newComment: " "
+    comment_field: " "
 }
 
-const NewCommentForm = () => {
+const NewCommentForm = ({ issueId }) => {
     const [newComment, setNewComment] = useState(initInputs)
-
     const {addNewComment} = useContext(UserContext)
 
     const handleCommentChange = (e) => {
@@ -20,18 +19,20 @@ const NewCommentForm = () => {
 
     const handleCommentSubmit = (e) => {
         e.preventDefault()
-        addNewComment(newComment)
+        const comment = {...newComment, issue: issueId}
+        console.log(comment)
+        addNewComment(comment)
         setNewComment(initInputs)
     }
 
-    const {commentText} = newComment
+    const {comment_field} = newComment
 
     return (
         <form onSubmit={handleCommentSubmit} className='new-comment-form'>
             <textarea
                 type="text"
-                name="commentText"
-                value={commentText}
+                name="comment_field"
+                value={comment_field}
                 onChange={handleCommentChange}
                 placeholder="Discuss..."
                 className="comment-box"

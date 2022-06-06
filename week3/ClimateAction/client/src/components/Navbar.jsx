@@ -10,7 +10,7 @@ const Navbar = () => {
             {token && <Link to="/profile" className='profile-link'>Profile</Link>}
             <Link to="/public" className='public-link'>Public</Link>
             <h1 className='profile-nav'>{username}</h1>
-            {token && <button onClick={logout} className="logout">Logout</button>}
+            {token ? <button onClick={logout} className="logout">Logout</button> : <Link to ="/">Auth</Link>}
         </div>
     )
 }

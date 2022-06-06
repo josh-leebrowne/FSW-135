@@ -7,7 +7,8 @@ const Issue = require('../models/issue')
 
 //Add New Comment
 commentRouter.post("/", (req, res, next) => {
-    req.body.user = req.user._id
+    console.log(req.body)
+    req.body.user = req.auth._id
     const newComment = new Comment(req.body)
     newComment.save((err, savedComment) => {
         if(err){
@@ -18,7 +19,7 @@ commentRouter.post("/", (req, res, next) => {
             { _id: savedComment.issue },
             {$push: { comments: savedComment }},
             { new: true },
-            (err, savedComment) => {
+            (err) => {
                 if(err){
                     res.status(500)
                     return next(err)
@@ -28,3 +29,5 @@ commentRouter.post("/", (req, res, next) => {
         )
     })
 })
+
+module.exports = commentRouter

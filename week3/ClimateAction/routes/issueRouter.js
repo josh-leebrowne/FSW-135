@@ -15,7 +15,7 @@ issueRouter.get('/', (req, res, next) => {
 
 //Get Issues by user Id
 issueRouter.get("/user", (req, res, next) => {
-    Issue.find({ issue: req.auth._id }, (err, issues) => {
+    Issue.find({ user: req.auth._id }, (err, issues) => {
         if(err){
             res.status(500)
             return next(err)
@@ -27,7 +27,6 @@ issueRouter.get("/user", (req, res, next) => {
 //Add new Issue
 issueRouter.post("/", (req, res, next) => {
     const failedPost = 'Please add a title and description.'
-    console.log(req.body, req.auth)
     req.body.user = req.auth._id
     const newIssue = new Issue(req.body)
     newIssue.save((err, savedIssue) => {
@@ -35,6 +34,7 @@ issueRouter.post("/", (req, res, next) => {
             res.status(500)
             return next(new Error(failedPost))
         }
+        console.log(savedIssue)
         return res.status(201).send(savedIssue)
     })
 })
@@ -48,7 +48,7 @@ issueRouter.delete("/:issueId", (req, res, next) => {
                 res.status(500)
                 return next(err)
             }
-            return res.status(200).send(`Successfully Deleted Issue: ${deletedIssue.title}`)
+            return res.status(200).send(`Successfully Deleted Issue: `)
         }
     )
 })

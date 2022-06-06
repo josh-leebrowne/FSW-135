@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import axios from "axios";
 
 export const UserContext = createContext()
@@ -15,7 +15,8 @@ const UserProvider = (props) => {
     const initState = {
         user: {}, 
         token: "", 
-        issues: [], 
+        issues: [],
+        publicIssues: [],
         errMsg: ''
     }
 
@@ -64,16 +65,23 @@ const UserProvider = (props) => {
     const logout = () => {
         localStorage.removeItem('token')
         localStorage.removeItem('user')
-        setUserState({ user: {}, token: "", issues: [] })
+        setUserState(prevState => ({...initState, publicIssues: prevState.publicIssues}))
     }
 
     const addIssue = (newIssue) => {
-        userAxios.post('/api/issue', newIssue)
+        console.log(newIssue)
+        var issue = {title: newIssue.title, description: newIssue.description}
+        userAxios.post('/api/issue', issue)
         .then(res => {
+            console.log(res.data)
             setUserState(prevState => ({
                 ...prevState,
-                issues: [...prevState.issues, res.data]
+                issues: [...prevState.issues, res.data], publicIssues: [...prevState.publicIssues, res.data]
             }))
+            addNewComment({
+                issue: res.data._id,
+                comment_field: newIssue.comments
+            })
         })
         .catch(err => console.log(err.response.data.errMsg))
     }
@@ -89,38 +97,62 @@ const UserProvider = (props) => {
         .catch(err => console.log(err.response.data.errMsg))
     }
 
-    const publicIssues = () => {
-        userAxios.get('/public/issue')
+    const getPublicIssues = () => {
+        axios.get('/public/issue')
         .then(res=> {
+            console.log(res.data)
             setUserState(prevState => ({
                 ...prevState,
-                issues: res.data
-            }))
-            .catch(err => console.log(err.response.data.errMsg))
-        })
-    }
-
-    const deleteIssue = (issueId) => {
-        userAxios.delete(`/api/issue/${issueId}`)
-        .then(res => {
-            setUserState(prevState => prevState.filter(issue => issue._id !== issueId))
+                publicIssues: res.data
+            }))   
         })
         .catch(err => console.log(err.response.data.errMsg))
     }
 
-    const addNewComment = (newComment) => {
-        // userAxios.post('/api/issue/comment', newComment)
-        // .then(res => {
-        //     setUserState(prevState => ({
-        //         ...prevState,
-        //         issues: [...prevState.issues, res.data]
-        //     }))
-        // })
-        // .catch(err => console.log(err.response.data.errMsg))
+    const deleteIssue = (issueId) => {
+        console.log(issueId)
+        userAxios.delete(`/api/issue/${issueId}`)
+        .then(res => {
+            setUserState(prevState => ({
+                ...prevState,
+                issues: prevState.issues.filter(issue => {
+                    return issue._id !== issueId}),
+                publicIssues: prevState.publicIssues.filter(issue => {
+                    return issue._id !== issueId})
+        }))})
+        .catch(err => console.log(err.response.data.errMsg))
     }
 
+    const addNewComment = (newComment) => {
+        userAxios.post('/api/comment', newComment)
+        .then(res => {
+            setUserState(prevState => ({
+                ...prevState,
+                issues: prevState.issues.map(issue => {
+                    if(issue._id === newComment.issue){
+                        issue.comments.push(res.data)
+                    } return(issue) 
+                }),
+                publicIssues: prevState.publicIssues.map(issue => {
+                    return(issue)
+                })
+            }))
+        })
+        .catch(err => console.log(err.response.data.errMsg))
+    }
+
+    useEffect(() => {
+        setUserState(prevState => ({
+            ...prevState,
+            user: JSON.parse(localStorage.getItem('user')) || {}, 
+            token: localStorage.getItem('token') || "", 
+        }))
+        getPublicIssues()
+        getUserIssues()
+    }, [])
+
     return(
-        <UserContext.Provider value={ { ...userState, signUp, login, logout, addIssue, getUserIssues, publicIssues, deleteIssue, resetAuthErr, addNewComment }}>
+        <UserContext.Provider value={ { ...userState, signUp, login, logout, addIssue, getUserIssues, getPublicIssues, deleteIssue, resetAuthErr, addNewComment }}>
             { props.children }
         </UserContext.Provider>
     )

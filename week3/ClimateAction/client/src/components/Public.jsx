@@ -4,12 +4,12 @@ import { UserContext } from '../context/UserProvider.js'
 
 
 const Public = () => {
-    const { issues } = useContext(UserContext)
-
+    const { publicIssues } = useContext(UserContext)
+    console.log(publicIssues)
     return (
         <div className='public-main'>
             <h3 className='public-issues'>Issues</h3>
-            <IssueList issues={issues}/>
+            <IssueList issues={publicIssues}/>
         </div>
     )
 }
